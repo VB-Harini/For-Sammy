@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(255,182,193,0.25), transparent 45%),
+        linear-gradient(135deg, #ffdde1, #ee9ca7);
+    overflow: hidden;
+    color: #333;
+}
+
+/* floating soft blobs */
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.35;
+    pointer-events:none;
+}
+body::before{
+    background:#ff8fab;
+    top:-80px;
+    left:-80px;
+}
+body::after{
+    background:#c77dff;
+    bottom:-100px;
+    right:-100px;
+}
+
+/* music label */
+.music-tag{
+    position:fixed;
+    top:14px;
+    right:18px;
+    font-size:13px;
+    background:rgba(255,255,255,0.7);
+    padding:6px 12px;
+    border-radius:20px;
+    backdrop-filter:blur(6px);
+    opacity:0;
+    transition:.4s;
+}
+.music-tag.show{ opacity:1; }
+
+/* HEARTS */
+.heart {
+    position: fixed;
+    bottom: -30px;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    opacity: 0.9;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(0.8); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.4); opacity: 0; }
+}
+
+/* SCREENS */
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transform: scale(0.96);
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+.screen.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    padding: 42px;
+    border-radius: 26px;
+    max-width: 700px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.18),
+        0 0 40px rgba(255,77,109,0.15);
+    text-align: center;
+}
+
+h1 {
+    color: #ff4d6d;
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: justify;
+    line-height: 1.8;
+    margin-bottom: 18px;
+    font-size: 16px;
+}
+
+/* BUTTON */
+.btn {
+    margin-top: 10px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(90deg,#ff4d6d,#ff758f);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* GRAND FINALE TEXT */
+.big-finale {
+    font-size: clamp(42px, 7vw, 88px);
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.1;
+    background: linear-gradient(90deg, #ff4d6d, #ff8fab, #c77dff, #7b2cbf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: popIn 1s ease forwards, glow 2.5s ease-in-out infinite alternate;
+    opacity: 0;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes glow {
+    from { filter: drop-shadow(0 0 6px rgba(255,77,109,0.5)); }
+    to { filter: drop-shadow(0 0 22px rgba(199,125,255,0.9)); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="music-tag" id="musicTag">♪ Lover — Taylor Swift playing</div>
+
+<audio id="bgMusic" src="lover.mp3"></audio>
+
+<!-- SCREEN 1 -->
+<div class="screen active" id="s1">
+<div class="card">
+<h1>Hey Sammy</h1>
+<p>
+This is not meant to be anything elaborate or over the top. I just randomly
+decided to sit and put something together on my own, with a little help from
+GPT bhaiyaa for the coding part obviously, and leave it here for you to read
+whenever you feel like. I know this is probably one of the most random things
+I have done so far, but honestly that is very on brand for me at this point.
+There is nothing very serious you have to do here, just read normally and go
+through it at your own pace. This is again just a long ass message.
+</p>
+<button class="btn" onclick="next('s2')">Continue</button>
+</div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen" id="s2">
+<div class="card">
+<p>
+Okay… so where do I even properly start. Over time I have realised one thing
+very clearly, not everything that actually matters has to look big or obvious
+from outside. Sometimes the quieter things end up staying longer in memory.
+Still, I will be honest about one thing. This whole past week did make me feel
+a little weird internally. Watching people give you chocolates, accessories,
+and all sorts of nice things made me think whether I was slowly falling behind
+without even realising it properly from my side.
+</p>
+<button class="btn" onclick="next('s3')">Next</button>
+</div>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen" id="s3">
+<div class="card">
+<p>
+Every single time I came up with some idea to get you something, somehow it felt
+like someone had already given you that exact type of thing. After one point I
+was genuinely sitting and wondering what even makes sense anymore. On top of
+that, I am honestly not very great when it comes to buying gifts in general.
+I suck at it. I do tend to mess it up half the time. So instead
+of forcing something just for the sake of it, I thought it is better to do
+something different in my own unusual style.
+</p>
+<button class="btn" onclick="next('s4')">Next</button>
+</div>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="screen" id="s4">
+<div class="card">
+<p>
+If you actually observe properly, most of what I do usually follows the same
+pattern only. Athey painting, some random artwork, sometimes one cringe letter
+also gets added into the list. I am not someone who naturally jumps into very
+dramatic big gestures. Half the time my methods probably look either boring or
+slightly weird from outside perspective. But that is just how my brain normally
+functions. I end up doing things in my own way even when I know it is not the
+most impressive stuff to do at all.
+</p>
+<button class="btn" onclick="next('s5')">Next</button>
+</div>
+</div>
+
+<!-- SCREEN 5 -->
+<div class="screen" id="s5">
+<div class="card">
+<p>
+At the same time, this was never really about competing with what anyone else
+gave you. That part was never the main point for me. What has always mattered
+more is the space we slowly built over time. All the random talks, the pointless
+arguments, complete silence, and those small small in between moments
+that most people outside would probably not even notice properly. Those things
+somehow stay with me longer than the obvious visible stuff.
+</p>
+<button class="btn" onclick="next('s6')">Next</button>
+</div>
+</div>
+
+<!-- SCREEN 6 (MUSIC STARTS HERE NOW) -->
+<div class="screen" id="s6">
+<div class="card">
+<p>
+I know I do not always say things very directly. Half the time I just behave
+normally as if everything is understood without me expressing it out properly.
+But the truth is I do notice more than I openly react to. Whether it is your
+mood shifts, or the way you react to the smallest
+things, most of it quietly registers somewhere in the background. I just do
+not always make it obvious in the moment.
+</p>
+<button class="btn" onclick="next('s7'); startMusic();">Next</button>
+</div>
+</div>
+
+<!-- SCREEN 7 -->
+<div class="screen" id="s7">
+<div class="card">
+<p>
+Also just to say this very plainly, if situations were different and if I had
+full freedom with money to spend the way I wanted, I probably would have picked
+something much bigger for you without thinking twice. Since that was not really
+possible right now, I worked within what I could manage without
+overdoing anything unnecessarily. So this is what made the most sense to me at
+this point of time. And so yeah I did it.
+</p>
+<button class="btn" onclick="next('s8'); startHearts();">Next</button>
+</div>
+</div>
+
+<!-- SCREEN 8 -->
+<div class="screen" id="s8">
+<div class="card">
+<p>
+Anyway yeah… that is pretty much what I wanted to say for now. I did not want to
+keep repeating the same thing again and again and end up boring you in the
+process. So I will just leave it here without stretching it more than required.
+If you reached till this point without skipping, that itself is already more
+patience than most people usually give hahaha.
+</p>
+<button class="btn" onclick="next('s9')">I love you</button>
+</div>
+</div>
+
+<!-- GRAND FINALE -->
+<div class="screen" id="s9">
+<div class="card">
+<div class="big-finale">
+Happy Valentine's Day<br>Sammy 🤍
+</div>
+</div>
+</div>
+
+<script>
+let heartInterval = null;
+
+function next(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function startMusic() {
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.6;
+    music.play().catch(()=>{});
+    document.getElementById("musicTag").classList.add("show");
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    const hearts = ["❤","💖","💗","💘","💜","💙"];
+    heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (20 + Math.random()*28) + "px";
+    heart.style.animationDuration = (4 + Math.random()*3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+}
+
+function startHearts() {
+    if (heartInterval) return;
+    heartInterval = setInterval(createHeart, 200);
+}
+</script>
+
+</body>
+</html>
